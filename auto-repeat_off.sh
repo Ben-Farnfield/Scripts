@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# bash from autostart.sh to fix volume key bug
+# bash from autostart.sh to fix volume key issue
 
 terminator --command="xset -r"
 
