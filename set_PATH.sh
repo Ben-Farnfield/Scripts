@@ -1,16 +1,15 @@
 #!/bin/bash
 
-#-----------------------------------------------------------#
-#     This script sets or removes custom PATH variables.    #
-#-----------------------------------------------------------#
+#---------------------------------------------------------------------#
+#                      Script to set custom PATH                      #
+#---------------------------------------------------------------------#
 
-#-----------------------------------------------------------#
-# WARNING! if you've prev set your path using this script   #
-#          you MUST run this script to remove your old PATH # 
-#          BEFORE making any changes to the PATH variables. #
-#-----------------------------------------------------------#
+CURRENT_PATH=$PATH
+DEFAULT_PATH=/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+PATH=$DEFAULT_PATH
 
-# Set Your PATH Variables -----------------------------------
+
+# Set Your PATH Variables Here ----------------------------------------
 
 # Java
 JAVA_VER=jdk1.7.0_40
@@ -23,26 +22,36 @@ P_TOOLS=$ADT_SDK/platform-tools
 TOOLS=$ADT_SDK/tools
 PATH=$PATH:$P_TOOLS:$TOOLS
 
+#----------------------------------------------------------------------
 
-# Add / Remove PATH Variables from ~/.profile ---------------
+
+
+# Add / Remove PATH Variables from ~/.profile -------------------------
 
 COMMENT="# set $USER's PATH"
-MSG="You must now log out for your PATH to be set"
+MSG="You MUST now log out to set your PATH."
 
 # check if PATH prev set by this script
 PATH_SET=$(egrep "^$COMMENT" ~/.profile)
 
 if [ "X$PATH_SET" = "X" ]; then
+	# backup profile
+	cp ~/.profile ~/.profile.OLD
 	# add PATH to ~/.profile
 	printf "$COMMENT\n" >> ~/.profile
 	printf "PATH=$PATH" >> ~/.profile
-	zenity --info --title="Set PATH" --text "$MSG"
+	# info pop-up
+	zenity --info --title="info" --text "$MSG"
 else
-	# remove PATH from ~/.profile
-	egrep -v "^$COMMENT" ~/.profile > ~/.profile.tmp
-	egrep -v "PATH=$PATH" ~/.profile.tmp > ~/.profile
-	rm ~/.profile.tmp
-	zenity --info --title="Set PATH" --text "$MSG"
+	# backup profile
+	cp ~/.profile ~/.profile.OLD
+	# remove old PATH from ~/.profile
+	egrep -v "PATH=$CURRENT_PATH" ~/.profile > ~/.profile.tmp
+	mv ~/.profile.tmp ~/.profile
+	# add new PATH to ~/.profile
+	printf "PATH=$PATH" >> ~/.profile
+	# info pop-up
+	zenity --info --title="info" --text "$MSG"
 fi
 
-exit 0
+#----------------------------------------------------------------------
