@@ -1,6 +1,10 @@
 #!/bin/bash
 
-terminator --command="sudo apt-get update && \
-sudo apt-get upgrade && \
-sudo apt-get autoremove && \
+#------------------------------------------------#
+#       Update script for Crunchbang Linux       #
+#------------------------------------------------#
+
+terminator --command="sudo apt-get update; \
+sudo apt-get upgrade; \
+sudo apt-get autoremove; \
 sudo apt-get autoclean"
