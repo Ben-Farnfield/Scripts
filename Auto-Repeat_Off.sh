@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #--------------------------------------------------------------#
-#     Script to fix volume key issue when using Crunchbang     #
+#  Script to fix volume key issue when using Crunchbang Linux  #
 #--------------------------------------------------------------#
 
 terminator --command="xset -r"
