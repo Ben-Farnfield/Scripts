@@ -1,6 +1,10 @@
 #! /bin/bash
 
-ADT_HOME=/usr/local/ADT
+#--------------------------------------------------------------#
+#      Start adb server with root privileges on ADT start      #
+#--------------------------------------------------------------#
+
+ADT_HOME=/opt/ADT
 ADB_HOME=$ADT_HOME/sdk/platform-tools
 
 # Restart adb server with root privileges.
