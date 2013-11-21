@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Encoding=UTF-8
-Name=ADT
-Comment=ADT
-Exec=/home/mooli/Scripts/Dev/ADT/ADT_Start.sh
-Icon=/usr/share/icons/hicolor/64x64/apps/ADT.png
-Terminal=false
-Categories=Development;
