@@ -1,0 +1,68 @@
+#! /bin/bash
+
+# Setup ------------------------------------------------------------------------
+
+# Program
+PROG=ADT
+HOME=/home/$USER/Scripts/DesktopFiles/$PROG
+
+# Icon
+ICON_HOME=/usr/share/icons/hicolor
+ICON_NAME=$PROG.png
+
+# Desktop
+DESK_NAME=$PROG.desktop
+EXEC=/home/$USER/Scripts/Dev/ADT/ADT_Start.sh
+MENU=Development
+
+# ------------------------------------------------------------------------------
+
+case "$1" in
+    "install")
+    
+        # Install Icons
+        # 64x64
+        sudo cp $HOME/icons/64x64/$ICON_NAME \
+        $ICON_HOME/64x64/apps/$ICON_NAME
+        # 48x48
+        sudo cp $HOME/icons/48x48/$ICON_NAME \
+        $ICON_HOME/48x48/apps/$ICON_NAME
+
+        # Create .desktop
+        DESK="[Desktop Entry]\n"\
+"Type=Application\n"\
+"Encoding=UTF-8\n"\
+"Name=$PROG\n"\
+"Comment=$PROG\n"\
+"Exec=$EXEC\n"\
+"Icon=$ICON_HOME/64x64/apps/$ICON_NAME\n"\
+"Terminal=false\n"\
+"Categories=$MENU;"
+        
+        echo -e $DESK > $HOME/$DESK_NAME
+
+        # Install .desktop
+        sudo cp $HOME/$DESK_NAME \
+        /usr/share/applications/$DESK_NAME
+        
+        ;;
+        
+    "remove")
+    
+        # Remove Icons
+        sudo rm $ICON_HOME/64x64/apps/$ICON_NAME # 64x64
+        sudo rm $ICON_HOME/48x48/apps/$ICON_NAME # 48x48
+        
+        # Remove .desktop
+        rm $HOME/$DESK_NAME
+        sudo rm /usr/share/applications/$DESK_NAME
+        
+        ;;
+        
+    *)
+        echo -e "\n You need to enter: setup [option]\n\n"\
+        "--options--\n\n"\
+        "install: create then install .desktop file and install icons.\n"\
+        "remove: remove .desktop file and icons\n"
+        ;;
+esac
