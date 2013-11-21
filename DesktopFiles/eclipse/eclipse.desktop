@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Encoding=UTF-8
-Name=eclipse
-Comment=eclipse
-Exec=/opt/eclipse/eclipse
-Icon=/usr/share/icons/hicolor/64x64/apps/eclipse.png
-Terminal=false
-Categories=Development;
