@@ -45,7 +45,7 @@ REM_ICON="\n\"No such file or directory\" means icon type was not "\
 # ------------------------------------------------------------------------------
 
 case "$1" in
-    "install")
+    "-i" | "--install")
     
         # Install Icons
         if [ "$ICON_TYPE" = "png" ]; then
@@ -75,7 +75,7 @@ case "$1" in
         /usr/share/applications/$DESK_NAME
     ;;
         
-    "remove")
+    "-r" | "--remove")
     
         # Remove Icons
         sudo rm $ICON_HOME/64x64/apps/$PROG.png # 64x64
