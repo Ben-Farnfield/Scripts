@@ -3,12 +3,16 @@
 import argparse
 import subprocess
 import getpass
+import shutil
+import os
+import sys
 
 # CONFIG -----------------------------------------------------------------------
 
 # Program
+USER = "mooli" # enter your user name
 PROG = "eclipse" # enter program name
-HOME = "/home/{}/Scripts/System/DesktopFiles/{}".format(getpass.getuser(), PROG)
+HOME = "/home/{}/Scripts/System/DesktopFiles/{}".format(USER, PROG)
 
 # Icon
 ICON_SIZES = ["48x48", "64x64"]
@@ -49,21 +53,21 @@ def get_args():
 def install_icons(args):
     for i in range(len(ICON_SIZES)):
         print "Installing {} {} icons...".format(ICON_SIZES[i], args.install)
-        subprocess.call(["sudo", "cp", "{}/icons/{}/{}.{}"
-                         .format(HOME, ICON_SIZES[i], PROG, args.install), 
+        shutil.copyfile("{}/icons/{}/{}.{}"
+                        .format(HOME, ICON_SIZES[i], PROG, args.install), 
                         "{}/{}/apps/{}.{}"
                         .format(ICON_INST_HOME, ICON_SIZES[i], PROG, 
-                                args.install)])
+                        args.install))
 
 
 def remove_icons():
     for i in range(len(ICON_SIZES)):
         print "Removing {} icons".format(ICON_SIZES[i])
         for j in range(len(ICON_TYPES)):
-            subprocess.call(["sudo", "rm", "-f",
-                             "{}/{}/apps/{}.{}"
-                             .format(ICON_INST_HOME, ICON_SIZES[i], PROG, 
-                                     ICON_TYPES[j])])
+            tmp_path = ("{}/{}/apps/{}.{}".format(ICON_INST_HOME, 
+                        ICON_SIZES[i], PROG, ICON_TYPES[j]))
+            if os.path.isfile(tmp_path):
+                os.remove(tmp_path)
 
 
 def install_desktop():
@@ -77,6 +81,10 @@ def remove_desktop():
 
 # ------------------------------------------------------------------------------
 
+if getpass.getuser() != "root":
+    print "You need to run as root!"
+    sys.exit()
+    
 args = get_args()
 
 if args.install:
