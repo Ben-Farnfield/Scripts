@@ -9,7 +9,6 @@ import sys
 
 # CONFIG -----------------------------------------------------------------------
 
-# Program
 USER = "mooli" # enter your user name
 PROG = "eclipse" # enter program name
 HOME = "/home/{}/Scripts/System/DesktopFiles/{}".format(USER, PROG)
@@ -19,7 +18,7 @@ ICON_SIZES = ["48x48", "64x64"]
 ICON_TYPES = ["png", "svg"]
 ICON_INST_HOME = "/usr/share/icons/hicolor"
 
-# Desktop
+# .desktop
 EXEC = "/opt/eclipse/eclipse" # enter execution instructions
 MENU = "Development" # enter menu entry type
 
@@ -64,27 +63,30 @@ def remove_icons():
     for i in range(len(ICON_SIZES)):
         print "Removing {} icons".format(ICON_SIZES[i])
         for j in range(len(ICON_TYPES)):
-            tmp_path = ("{}/{}/apps/{}.{}".format(ICON_INST_HOME, 
-                        ICON_SIZES[i], PROG, ICON_TYPES[j]))
+            tmp_path = ("{}/{}/apps/{}.{}"
+                        .format(ICON_INST_HOME, ICON_SIZES[i], PROG, 
+                        ICON_TYPES[j]))
             if os.path.isfile(tmp_path):
                 os.remove(tmp_path)
 
 
 def install_desktop():
     print "Installing .desktop file"
-    
 
 
 def remove_desktop():
     print "Removing .desktop file"
-    
+
+
+def check_user():
+    if getpass.getuser() != "root":
+        print "You need to run as root!"
+        sys.exit()
 
 # ------------------------------------------------------------------------------
 
-if getpass.getuser() != "root":
-    print "You need to run as root!"
-    sys.exit()
-    
+check_user()
+
 args = get_args()
 
 if args.install:
