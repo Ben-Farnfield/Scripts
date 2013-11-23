@@ -17,7 +17,7 @@ ICON_INST_HOME = "/usr/share/icons/hicolor"
 
 # .desktop
 
-EXEC = "~/Scripts/Dev/ADT/ADT_Start.sh" # enter execution instructions
+EXEC = "/home/mooli/Scripts/Dev/ADT/ADT_Start.sh" # enter execution instructions
 CAT = "Development"           # enter menu entry type
 
 def get_desktop_contents(args):
