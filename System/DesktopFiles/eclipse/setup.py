@@ -15,7 +15,7 @@ ICON_TYPES = ["png", "svg"]
 ICON_INST_HOME = "/usr/share/icons/hicolor"
 
 
-# .desktop ---------------------------------------------------------------------
+# .desktop
 
 EXEC = "/opt/eclipse/eclipse" # enter execution instructions
 CAT = "Development"           # enter menu entry type
@@ -28,11 +28,12 @@ def get_desktop_contents(args):
             "Comment="+COMMENT+"\n"+
             "Exec="+EXEC+"\n"+
             "Icon="+ICON_INST_HOME+"/64x64/apps/"+PROG+"."+args.install+"\n"+
-            "Terminal=false"
+            "Terminal=false\n"
             "Categories="+CAT+";")
 
 
 # ------------------------------------------------------------------------------
+
 
 # Get arguments passed by user.
 def get_args():
@@ -59,18 +60,24 @@ def remove_icons():
             icon_path = (ICON_INST_HOME+"/"+ICON_SIZES[i]+"/apps/"
                          +PROG+"."+ICON_TYPES[j])
             if os.path.isfile(icon_path):
-                print ("Removing "+ICON_SIZES[i]+" "+icon_name)
+                print ("Removing "+ICON_SIZES[i]+" "+PROG+"."+ICON_TYPES[j])
                 os.remove(icon_path)
 
 
-def install_desktop():
+def install_desktop(args):
     print "Installing .desktop file"
+    desktop = open("/usr/share/applications/"+PROG+".desktop", "w")
+    desktop.write(get_desktop_contents(args))
+    desktop.close()
 
 
 def remove_desktop():
     print "Removing .desktop file"
+    os.remove("/usr/share/applications/"+PROG+".desktop")
+
 
 # ------------------------------------------------------------------------------
+
 
 WRK_DIR = os.getcwd()
 
@@ -78,7 +85,7 @@ args = get_args()
 
 if args.install:
     install_icons(args)
-    install_desktop()
+    install_desktop(args)
 elif args.remove:
     remove_icons()
     remove_desktop()
