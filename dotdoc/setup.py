@@ -37,14 +37,21 @@ def get_desktop_contents(args):
 
 # Get arguments passed by user.
 def get_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-i", "--install", 
-                        help=("install .desktop and icons. MUST pass the "
-                              "icon type as: 'svg' or 'png'"))
-    parser.add_argument("-r", "--remove", action="store_true",
-                        help="remove .desktop file and icons")
+    parser = argparse.ArgumentParser(prog="dotdoc")
+    parser.add_argument("-i", action="store_true",
+                        help="Install .desktop and icons.")
+    parser.add_argument("-r", action="store_true",
+                        help="Remove .desktop and icons")
+    parser.add_argument("-g", help=("Generate dotdoc directory. Pass your "
+                                    "programs name as the argument"))
+    parser.add_argument("path", nargs="?", default=".", 
+                        help="Path to dotdoc directory.")
     return parser.parse_args()
- 
+
+
+def generate_dotdoc_dir():
+    
+
 
 def install_icons(args):
     icon_name = (PROG+"."+args.install)
@@ -83,11 +90,15 @@ WRK_DIR = os.getcwd()
 
 args = get_args()
 
-if args.install:
-    install_icons(args)
-    install_desktop(args)
-elif args.remove:
-    remove_icons()
-    remove_desktop()
+if args.i:
+    print "install"
+    #install_icons(args)
+    #install_desktop(args)
+elif args.r:
+    print "remove"
+    #remove_icons()
+    #remove_desktop()
+elif args.g:
+    print "generate"
 else:
     print "Try 'setup.py --help'"
